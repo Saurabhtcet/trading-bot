@@ -1,0 +1,24 @@
+function generateMockPrices() {
+    const prices = [];
+    let currentPrice = 100; // Starting price
+  
+    // Generate 100 random stock prices fluctuating within a range
+    for (let i = 0; i < 100; i++) {
+      // Simulate stock price changes (fluctuate by -2% to +2% each step)
+      const changePercent = (Math.random() * 4 - 2) / 100; // Random change between -2% and +2%
+      currentPrice = parseFloat((currentPrice * (1 + changePercent)).toFixed(2)); // Ensure currentPrice is rounded
+  
+      // Add a check to prevent NaN
+      if (isNaN(currentPrice) || currentPrice <= 0) {
+        console.error(`Generated an invalid price: ${currentPrice}, resetting to previous valid price.`);
+        currentPrice = prices[i - 1] || 100; // Reset to previous valid price or default to 100
+      }
+  
+      prices.push(currentPrice);
+    }
+  
+    return prices;
+  }
+  
+  module.exports = generateMockPrices;
+  
